@@ -33,14 +33,13 @@ const server = http.createServer((request, response) => {
     return;
   }
 
-  const params = query.split('&');
-  params[0] = params[0].replace('a=', '');
-  params[1] = params[1].replace('b=', '');
+  const params = query.split(/=|&/g);
   const numberParams = params
     .filter((item) => !isNaN(Number(item)))
     .map(Number);
+  console.log(numberParams);
 
-  if (numberParams.length < 2) {
+  if (numberParams.length <= 1) {
     server.emit(
       'error',
       new Error('Nice but provider numbers now not letters')
