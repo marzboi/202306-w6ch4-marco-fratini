@@ -1,15 +1,12 @@
 import http from 'http';
 import url from 'url';
 import * as dotenv from 'dotenv';
-
-dotenv.config();
+import { program } from 'commander';
 
 const sum = (a: number, b: number) => a + b;
 const rest = (a: number, b: number) => a - b;
 const multiplication = (a: number, b: number) => a * b;
 const division = (a: number, b: number) => a / b;
-
-const PORT = process.env.PORT || 4444;
 
 const server = http.createServer((request, response) => {
   if (!request.url) {
@@ -77,6 +74,19 @@ const server = http.createServer((request, response) => {
   );
   response.end();
 });
+
+dotenv.config();
+
+program
+  .option(
+    '-p, --port <type>',
+    'Specify the port you want the server to listen on'
+  )
+  .parse(process.argv);
+
+const options = program.opts();
+
+const PORT = options.port || process.env.PORT || 4444;
 
 server.listen(PORT);
 
