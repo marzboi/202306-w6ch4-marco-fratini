@@ -34,7 +34,6 @@ const server = http.createServer((request, response) => {
   const numberParams = params
     .filter((item) => !isNaN(Number(item)))
     .map(Number);
-  console.log(numberParams);
 
   if (numberParams.length <= 1) {
     server.emit(
